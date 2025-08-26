@@ -7,8 +7,10 @@ const API_CONFIG = {
 
 // Update headers to match your API requirements
 export const getHeaders = () => ({
-  'X-API-Key': API_CONFIG.apiKey, // Changed from 'X-Auth-Token' to 'X-API-Key'
+  'X-API-Key': API_CONFIG.apiKey,
   'Content-Type': 'application/json',
+  timeout: 10000,
+  useCorsProxy: true, // Add this flag
 });
 // Generic fetch wrapper with error handling
 export const apiRequest = async (endpoint, options = {}) => {
