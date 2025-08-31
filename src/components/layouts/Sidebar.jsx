@@ -1,14 +1,14 @@
+// src/components/layouts/Sidebar.jsx
 export default function Sidebar({ 
   user, 
   onLogout, 
   activeSection, 
   setActiveSection, 
   navItems, 
-  filterConfig 
+  filterConfig,
+  premierLeagueClubs 
 }) {
   const {
-    selectedLeague,
-    setSelectedLeague,
     selectedSeason,
     setSelectedSeason,
     selectedTeam,
@@ -20,7 +20,7 @@ export default function Sidebar({
       {/* Header */}
       <div className="px-6 py-6 border-b border-gray-700">
         <h1 className="text-2xl font-extrabold text-cyan-400 tracking-wide mb-2">
-          Football Analytics Pro
+          Premier League Analytics
         </h1>
         <p className="text-sm text-gray-400">Coach's Intelligence Platform</p>
       </div>
@@ -29,21 +29,7 @@ export default function Sidebar({
       <div className="p-4 border-b border-gray-700 space-y-3">
         <h3 className="text-sm font-semibold text-cyan-300 uppercase tracking-wider">Data Context</h3>
         
-        <div>
-          <label className="block text-xs font-medium text-gray-400 mb-1">League</label>
-          <select
-            value={selectedLeague}
-            onChange={(e) => setSelectedLeague(e.target.value)}
-            className="w-full text-sm px-3 py-2 rounded-lg bg-gray-800 border border-gray-700 text-white focus:outline-none focus:ring-1 focus:ring-cyan-500"
-          >
-            <option value="PL">Premier League</option>
-            <option value="LaLiga">La Liga</option>
-            <option value="Bundesliga">Bundesliga</option>
-            <option value="SerieA">Serie A</option>
-            <option value="Ligue1">Ligue 1</option>
-          </select>
-        </div>
-        
+        {/* Season Filter */}
         <div>
           <label className="block text-xs font-medium text-gray-400 mb-1">Season</label>
           <select
@@ -57,6 +43,7 @@ export default function Sidebar({
           </select>
         </div>
 
+        {/* Team Filter - Only Premier League clubs */}
         <div>
           <label className="block text-xs font-medium text-gray-400 mb-1">Team</label>
           <select
@@ -65,12 +52,11 @@ export default function Sidebar({
             className="w-full text-sm px-3 py-2 rounded-lg bg-gray-800 border border-gray-700 text-white focus:outline-none focus:ring-1 focus:ring-cyan-500"
           >
             <option value="">Select Team</option>
-            <option value="TOT">Tottenham Hotspur</option>
-            <option value="ARS">Arsenal</option>
-            <option value="MCI">Manchester City</option>
-            <option value="LIV">Liverpool</option>
-            <option value="CHE">Chelsea</option>
-            <option value="MU">Manchester United</option>
+            {premierLeagueClubs.map(club => (
+              <option key={club.id} value={club.id}>
+                {club.name}
+              </option>
+            ))}
           </select>
         </div>
       </div>

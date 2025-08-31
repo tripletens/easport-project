@@ -1,0 +1,143 @@
+/* src/components/ApiTester.css */
+.api-tester {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+}
+
+.api-tester h2 {
+  color: #2c3e50;
+  border-bottom: 2px solid #ecf0f1;
+  padding-bottom: 10px;
+}
+
+.api-tester h3 {
+  color: #3498db;
+  margin-top: 25px;
+}
+
+.config-section {
+  background-color: #f8f9fa;
+  padding: 15px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.toggle-headers-btn {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.toggle-headers-btn:hover {
+  background-color: #2980b9;
+}
+
+.headers-info {
+  background-color: white;
+  padding: 15px;
+  border-radius: 5px;
+  border-left: 4px solid #3498db;
+}
+
+.note {
+  font-style: italic;
+  color: #7f8c8d;
+  font-size: 0.9em;
+  margin-top: 10px;
+}
+
+.endpoint-section {
+  margin-bottom: 20px;
+}
+
+.endpoint-select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1em;
+}
+
+.params-section {
+  margin-bottom: 20px;
+}
+
+.param-inputs {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 15px;
+}
+
+.param-row {
+  display: flex;
+  flex-direction: column;
+}
+
+.param-row label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.param-row input {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.api-call-btn {
+  background-color: #2ecc71;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1.1em;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.api-call-btn:hover:not(:disabled) {
+  background-color: #27ae60;
+}
+
+.api-call-btn:disabled {
+  background-color: #95a5a6;
+  cursor: not-allowed;
+}
+
+.response-section {
+  margin-top: 20px;
+}
+
+.error-response, .success-response {
+  padding: 15px;
+  border-radius: 5px;
+  overflow-x: auto;
+}
+
+.error-response {
+  background-color: #ffecec;
+  border-left: 4px solid #e74c3c;
+}
+
+.success-response {
+  background-color: #e8f6ef;
+  border-left: 4px solid #2ecc71;
+}
+
+pre {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  background-color: rgba(0, 0, 0, 0.05);
+  padding: 10px;
+  border-radius: 4px;
+  max-height: 400px;
+  overflow-y: auto;
+}
