@@ -25,7 +25,7 @@ export const footballAPI = {
   // Keep other methods the same
   getPremierLeagueStandings: async (season = '2023') => {
     const params = { league: PREMIER_LEAGUE_CLUBS.LEAGUE_ID, season };
-    const { data, error } = await apiRequest(ENDPOINTS.LEAGUE_STANDINGS, params);
+    const { data, error } = await apiRequest(ENDPOINTS.STANDINGS, params);
     
     if (error) {
       console.warn('Using mock standings data due to error:', error);
