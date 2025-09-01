@@ -16,8 +16,8 @@ export default function Dashboard({ user, onLogout }) {
     { label: "Team Performance", icon: "📈", description: "Team KPIs and match analysis" },
     { label: "Player Analysis", icon: "👤", description: "Individual and squad performance" },
     { label: "League Standings", icon: "🏆", description: "Premier League table and stats" },
-    { label: "Coach Insights", icon: "🎯", description: "Tactical efficiency analysis" },
-    { label: "Live Dashboard", icon: "⚡", description: "Real-time match updates" },
+    // { label: "Coach Insights", icon: "🎯", description: "Tactical efficiency analysis" },
+    // { label: "Live Dashboard", icon: "⚡", description: "Real-time match updates" },
   ];
 
   // Filter configuration
