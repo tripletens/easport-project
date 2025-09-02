@@ -1,8 +1,7 @@
 import { useState } from "react";
 
 const dummyUsers = [
-  { username: "player1", password: "12345" },
-  { username: "coach1", password: "abcde" },
+  { username: "Bi85pe", password: "abcde" },
   { username: "analyst", password: "password" },
 ];
 

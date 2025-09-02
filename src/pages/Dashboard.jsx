@@ -3,6 +3,7 @@ import { useState } from "react";
 import Sidebar from "../components/layouts/Sidebar";
 import TeamPerformance from "../components/sections/TeamPerformance";
 import PlayerPerformance from "../components/sections/PlayerPerformance";
+import PlayerComparison from "../components/sections/PlayerComparison"; // NEW: Import PlayerComparison
 import PremierLeagueStandings from "../components/sections/PremierLeagueStandings";
 import { PREMIER_LEAGUE_CLUBS } from "../config/premierLeagueClubs";
 
@@ -15,6 +16,7 @@ export default function Dashboard({ user, onLogout }) {
   const navItems = [
     { label: "Team Performance", icon: "📈", description: "Team KPIs and match analysis" },
     { label: "Player Analysis", icon: "👤", description: "Individual and squad performance" },
+    { label: "Player Comparison", icon: "⚖️", description: "Compare player statistics and attributes" },
     { label: "League Standings", icon: "🏆", description: "Premier League table and stats" },
     // { label: "Coach Insights", icon: "🎯", description: "Tactical efficiency analysis" },
     // { label: "Live Dashboard", icon: "⚡", description: "Real-time match updates" },
@@ -46,6 +48,11 @@ export default function Dashboard({ user, onLogout }) {
         />;
       case "Player Analysis":
         return <PlayerPerformance 
+          selectedSeason={selectedSeason}
+          selectedTeam={selectedTeam}
+        />;
+      case "Player Comparison": // NEW: Player Comparison case
+        return <PlayerComparison 
           selectedSeason={selectedSeason}
           selectedTeam={selectedTeam}
         />;

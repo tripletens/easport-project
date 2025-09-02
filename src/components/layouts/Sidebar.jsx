@@ -40,6 +40,8 @@ export default function Sidebar({
             <option value="2023">2023/24</option>
             <option value="2022">2022/23</option>
             <option value="2021">2021/22</option>
+            <option value="2020">2020/21</option>
+            <option value="2019">2019/20</option>
           </select>
         </div>
 
