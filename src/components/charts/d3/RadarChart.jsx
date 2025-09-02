@@ -1,9 +1,10 @@
 // src/components/charts/d3/RadarChart.jsx
-import React, { useMemo } from 'react';
+import React, { useMemo, useRef, useEffect } from 'react';
 import * as d3 from 'd3';
-import D3BaseChart from './D3BaseChart';
 
-const RadarChart = ({ players, attributes, width = 400, height = 400, className = "" }) => {
+const RadarChart = ({ players, attributes, width = 500, height = 400, className = "" }) => {
+  const svgRef = useRef();
+  
   const processedData = useMemo(() => {
     if (!players || !attributes) return null;
 
@@ -24,20 +25,26 @@ const RadarChart = ({ players, attributes, width = 400, height = 400, className 
     });
   }, [players, attributes]);
 
-  const renderRadar = (svg, g, { innerWidth, innerHeight, data, margin }) => {
-    // Now margin is properly received from D3BaseChart
-    if (!data || data.length === 0) return;
+  useEffect(() => {
+    if (!processedData || processedData.length === 0) return;
 
-    const radius = Math.min(innerWidth, innerHeight) / 2 - 20;
-    const angleSlice = (Math.PI * 2) / data[0].values.length;
+    const svg = d3.select(svgRef.current);
+    svg.selectAll("*").remove(); // Clear previous chart
 
-    // Scales - using Tailwind color palette
+    const margin = { top: 50, right: 50, bottom: 50, left: 50 };
+    const innerWidth = width - margin.left - margin.right;
+    const innerHeight = height - margin.top - margin.bottom;
+    const radius = Math.min(innerWidth, innerHeight) / 2;
+
+    const g = svg.append('g')
+      .attr('transform', `translate(${margin.left + innerWidth / 2}, ${margin.top + innerHeight / 2})`);
+
+    const angleSlice = (Math.PI * 2) / processedData[0].values.length;
+
+    // Scales
     const rScale = d3.scaleLinear()
       .domain([0, 100])
       .range([0, radius]);
-
-    // Axes grid
-    const axes = g.append('g').attr('class', 'axes');
 
     // Grid circles
     const circles = [20, 40, 60, 80, 100];
@@ -45,37 +52,39 @@ const RadarChart = ({ players, attributes, width = 400, height = 400, className 
       g.append('circle')
         .attr('r', rScale(circle))
         .attr('fill', 'none')
-        .attr('stroke', '#4B5563') // gray-600
+        .attr('stroke', '#4B5563')
         .attr('stroke-width', 1)
         .attr('stroke-dasharray', '2,2');
     });
 
     // Axis lines and labels
-    data[0].values.forEach((d, i) => {
+    processedData[0].values.forEach((d, i) => {
       const angle = angleSlice * i - Math.PI / 2;
       const line = d3.line()([[0, 0], [radius * Math.cos(angle), radius * Math.sin(angle)]]);
       
-      axes.append('path')
+      g.append('path')
         .attr('d', line)
-        .attr('stroke', '#4B5563') // gray-600
+        .attr('stroke', '#4B5563')
         .attr('stroke-width', 1);
 
-      axes.append('text')
-        .attr('class', 'text-xs fill-gray-400')
+      g.append('text')
+        .attr('class', 'axis-label')
         .attr('x', (radius + 15) * Math.cos(angle))
         .attr('y', (radius + 15) * Math.sin(angle))
         .attr('text-anchor', 'middle')
         .attr('alignment-baseline', 'middle')
+        .attr('fill', '#9CA3AF')
+        .style('font-size', '11px')
         .text(d.axis);
     });
 
-    // Color scale using Tailwind colors
+    // Color scale
     const colorScale = d3.scaleOrdinal()
-      .domain(data.map(d => d.name))
-      .range(['#06B6D4', '#10B981', '#F59E0B', '#EF4444', '#8B5CF6']); // cyan, emerald, amber, red, violet
+      .domain(processedData.map(d => d.name))
+      .range(['#06B6D4', '#10B981', '#F59E0B', '#EF4444', '#8B5CF6']);
 
     // Draw each player's radar
-    data.forEach(player => {
+    processedData.forEach(player => {
       const lineGenerator = d3.lineRadial()
         .curve(d3.curveLinearClosed)
         .angle((d, i) => angleSlice * i - Math.PI / 2)
@@ -89,10 +98,8 @@ const RadarChart = ({ players, attributes, width = 400, height = 400, className 
         .attr('stroke', colorScale(player.name))
         .attr('stroke-width', 2)
         .attr('stroke-opacity', 0.8);
-    });
 
-    // Add data points
-    data.forEach(player => {
+      // Add data points
       player.values.forEach((d, i) => {
         const angle = angleSlice * i - Math.PI / 2;
         const x = rScale(d.value) * Math.cos(angle);
@@ -103,19 +110,19 @@ const RadarChart = ({ players, attributes, width = 400, height = 400, className 
           .attr('cy', y)
           .attr('r', 4)
           .attr('fill', colorScale(player.name))
-          .attr('stroke', '#1F2937') // gray-800
+          .attr('stroke', '#1F2937')
           .attr('stroke-width', 1);
       });
     });
 
-    // Legend - use the margin that was passed in
+    // LEGEND - MOVED TO TOP LEFT CORNER
     const legend = svg.append('g')
-      .attr('transform', `translate(${width - margin.right - 120}, ${margin.top})`); // Fixed this line
+      .attr('transform', `translate(${margin.left - 40}, ${margin.top - 40})`);
 
-    data.forEach((player, i) => {
+    processedData.forEach((player, i) => {
       const legendGroup = legend.append('g')
         .attr('transform', `translate(0, ${i * 25})`)
-        .attr('class', 'cursor-pointer')
+        .style('cursor', 'pointer')
         .on('mouseover', function() {
           d3.select(this).select('rect').attr('stroke', '#FFFFFF').attr('stroke-width', '2');
         })
@@ -135,26 +142,41 @@ const RadarChart = ({ players, attributes, width = 400, height = 400, className 
         .attr('x', 25)
         .attr('y', 12)
         .text(player.name)
-        .attr('class', 'text-sm fill-gray-200');
+        .attr('fill', '#E5E7EB')
+        .style('font-size', '14px')
+        .style('font-weight', '500');
     });
-  };
+
+  }, [processedData, width, height]);
 
   if (!processedData || processedData.length === 0) {
     return (
-      <div className="bg-gray-900/50 rounded-lg p-8 text-center border border-gray-700">
-        <div className="text-gray-400">Select players to generate radar comparison</div>
+      <div style={{
+        backgroundColor: 'rgba(17, 24, 39, 0.5)', 
+        borderRadius: '0.5rem', 
+        padding: '2rem', 
+        textAlign: 'center', 
+        border: '1px solid rgba(55, 65, 81, 1)',
+        width: width,
+        height: height,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+      }}>
+        <div style={{color: 'rgba(156, 163, 175, 1)'}}>Select players to generate radar comparison</div>
       </div>
     );
   }
 
   return (
-    <D3BaseChart
-      data={processedData}
-      width={width}
-      height={height}
-      renderChart={renderRadar}
-      className={className}
-    />
+    <div style={{ width: width, height: height, position: 'relative' }} className={className}>
+      <svg
+        ref={svgRef}
+        width={width}
+        height={height}
+        style={{ display: 'block' }}
+      />
+    </div>
   );
 };
 
