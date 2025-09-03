@@ -1,4 +1,3 @@
-// src/hooks/useTeamStats.jsx
 import { useState, useEffect } from 'react';
 import { footballAPI } from '../services/api/footballApi';
 import { PREMIER_LEAGUE_CLUBS } from '../config/premierLeagueClubs';
@@ -8,6 +7,7 @@ export const useTeamStats = (teamId, season = '2023') => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // here we will fetch the team stats 
   useEffect(() => {
     const fetchTeamStats = async () => {
       if (!teamId) {

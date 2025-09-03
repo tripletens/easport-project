@@ -1,6 +1,4 @@
-// src/components/charts/PerformanceTrendChart.jsx
 const PerformanceTrendChart = ({ data, team, season }) => {
-  // Simple placeholder for performance chart
   return (
     <div className="bg-gray-800/50 rounded-xl p-6 border border-gray-700">
       <h3 className="text-lg font-semibold text-cyan-300 mb-4">Performance Trends</h3>

@@ -1,7 +1,5 @@
-// src/components/ProjectContext.jsx
 import React, { createContext, useContext, useState } from 'react';
 
-// Academic project context to document research connections
 const ProjectContext = createContext();
 
 export const useProject = () => {
@@ -16,7 +14,7 @@ export const ProjectProvider = ({ children }) => {
   const [researchMode, setResearchMode] = useState('prototype'); // 'prototype' or 'esports'
   
   const projectData = {
-    // Academic project metadata
+    // we will add the academic project details
     projectTitle: "Interactive Data Visualization Model for eSports Data Analysis",
     student: "Emeka Umezuruike",
     studentId: "240156853",
@@ -24,7 +22,7 @@ export const ProjectProvider = ({ children }) => {
     programme: "MSc Computing",
     year: "2024/25",
     
-    // Research objectives
+    // we will add the research objectives
     objectives: [
       "Data collection and pre-processing from multiple sources",
       "JavaScript-based interactive visualization model",
@@ -33,12 +31,11 @@ export const ProjectProvider = ({ children }) => {
       "Actionable insights and recommendations"
     ],
     
-    // Current status
+    // we will add the current status
     currentPhase: "Prototype Development",
     researchMode,
     setResearchMode,
     
-    // Connection between prototype and final product
     prototypePurpose: `
       This football analytics dashboard serves as a technical prototype 
       demonstrating the visualization architecture, data integration patterns, 

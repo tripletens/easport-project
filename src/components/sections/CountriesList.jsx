@@ -1,4 +1,3 @@
-// src/components/sections/CountriesList.jsx
 import { useCountries } from '../../hooks/useCountries';
 
 const CountriesList = () => {

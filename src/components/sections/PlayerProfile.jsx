@@ -85,7 +85,7 @@ const PlayerProfile = ({ playerData, club, season, onClose }) => {
           </p>
         </div>
 
-        {/* Rating */}
+        {/* we will add the player's rating */}
         <div className="bg-gray-800/40 p-4 rounded-lg border border-gray-700">
           <h3 className="text-cyan-400 text-sm font-semibold mb-1">Rating</h3>
           <p className="text-2xl font-bold text-white">
@@ -94,7 +94,7 @@ const PlayerProfile = ({ playerData, club, season, onClose }) => {
           <p className="text-xs text-gray-400">Average Match Rating</p>
         </div>
 
-        {/* Cards */}
+        {/* we will add the cards */}
         <div className="bg-gray-800/40 p-4 rounded-lg border border-gray-700">
           <h3 className="text-cyan-400 text-sm font-semibold mb-1">Cards</h3>
           <div className="flex items-center space-x-3">
@@ -104,7 +104,7 @@ const PlayerProfile = ({ playerData, club, season, onClose }) => {
         </div>
       </div>
 
-      {/* Detailed Stats Section */}
+      {/* here is where we will add a detailed Stats Section */}
       <div className="mb-8">
         <h2 className="text-xl font-bold text-cyan-300 mb-4">Detailed Statistics</h2>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-sm">
@@ -133,13 +133,11 @@ const PlayerProfile = ({ playerData, club, season, onClose }) => {
           <div className="p-3 bg-gray-800/30 rounded">
             <span className="text-gray-400">Blocks:</span> {stats.tackles?.blocks || 0}
           </div>
-          {/* Add more stats as needed from the API response */}
         </div>
       </div>
 
-      {/* Note about data source */}
       <p className="text-xs text-gray-500 text-center mt-8">
-        Statistics provided by API-FOOTBALL. Data may be limited for the current season.
+        Statistics provided by API-FOOTBALL on <a href="https://rapidapi.com/"> RAPID API </a>. Data may be limited for the current season.
       </p>
     </div>
   );

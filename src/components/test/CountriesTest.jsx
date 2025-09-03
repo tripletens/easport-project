@@ -1,7 +1,7 @@
-// src/components/test/CountriesTest.jsx
 import { useState, useEffect } from 'react';
 import { footballAPI } from '../../api/footballApi';
 
+// everything here is for test purposes
 const CountriesTest = () => {
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(true);

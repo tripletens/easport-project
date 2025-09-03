@@ -1,4 +1,5 @@
-// src/components/charts/SimpleD3Test.jsx
+// this page is for test data 
+
 import { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 
@@ -6,20 +7,20 @@ const SimpleD3Test = () => {
   const svgRef = useRef();
 
   useEffect(() => {
-    // Clear previous content
+    // we will clear previous content
     d3.select(svgRef.current).selectAll("*").remove();
 
-    // Create SVG container
+    // we will create SVG container
     const svg = d3.select(svgRef.current)
       .attr('width', 400)
       .attr('height', 200)
       .style('background', '#1f2937')
       .style('border-radius', '8px');
 
-    // Create some sample data
+    // we will create some sample data
     const data = [30, 86, 168, 281, 303, 365];
 
-    // Create a simple bar chart
+    // lets create a simple bar chart
     svg.selectAll('rect')
       .data(data)
       .enter()
@@ -30,7 +31,7 @@ const SimpleD3Test = () => {
       .attr('height', (d) => d / 2)
       .attr('fill', '#06b6d4');
 
-    // Add some text labels
+    // let's add some text labels
     svg.selectAll('text')
       .data(data)
       .enter()
@@ -48,8 +49,9 @@ const SimpleD3Test = () => {
     <div className="p-4 bg-gray-800 rounded-lg">
       <h3 className="text-cyan-300 mb-2">D3.js Test Chart</h3>
       <svg ref={svgRef}></svg>
-      <p className="text-gray-400 text-sm mt-2">
-        If you see blue bars with numbers, D3 is working! ✅
+      {/* and it worked */}
+      <p className="text-gray-400 text-sm mt-2"> 
+        If you see blue bars with numbers, D3 is working! 
       </p>
     </div>
   );

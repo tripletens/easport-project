@@ -1,5 +1,4 @@
-// src/components/charts/d3/BarChartComparison.jsx
-import React, { useMemo } from 'react'; // ADD useMemo import
+import React, { useMemo } from 'react';
 import * as d3 from 'd3';
 import D3BaseChart from './D3BaseChart';
 
@@ -28,6 +27,13 @@ const BarChartComparison = ({ players, attributes, width = 600, height = 400, cl
   const renderBarChart = (svg, g, { innerWidth, innerHeight, data, margin }) => {
     if (!data || data.length === 0) return;
 
+    // we will calculate the maximum value across all data for the y-scale domain
+    const maxValue = d3.max(data, attributeData => 
+      d3.max(attributeData.values, playerData => playerData.value)
+    ) || 100; // we will fallback to 100 if no data
+
+    const paddedMaxValue = maxValue * 1.1;
+
     // Color scale using Tailwind colors
     const colorScale = d3.scaleOrdinal()
       .domain(players.map(p => p.player.name))
@@ -39,8 +45,9 @@ const BarChartComparison = ({ players, attributes, width = 600, height = 400, cl
       .range([0, innerWidth])
       .padding(0.2);
 
+    // we will be using a dynamic max value instead of a fixed value 
     const yScale = d3.scaleLinear()
-      .domain([0, 100]) // Assuming max value of 100 for all attributes
+      .domain([0, paddedMaxValue])
       .range([innerHeight, 0]);
 
     // Create subgroups for each player
@@ -50,7 +57,7 @@ const BarChartComparison = ({ players, attributes, width = 600, height = 400, cl
       .range([0, xScale.bandwidth()])
       .padding(0.05);
 
-    // Draw axes
+    // let's draw the x and y axes
     g.append('g')
       .attr('transform', `translate(0, ${innerHeight})`)
       .call(d3.axisBottom(xScale))
@@ -64,7 +71,7 @@ const BarChartComparison = ({ players, attributes, width = 600, height = 400, cl
       .selectAll('text')
       .attr('class', 'text-xs fill-gray-400');
 
-    // Draw bars
+    // let's draw bars
     data.forEach((attributeData, i) => {
       attributeData.values.forEach((playerData, j) => {
         g.append('rect')
@@ -80,12 +87,35 @@ const BarChartComparison = ({ players, attributes, width = 600, height = 400, cl
               .transition()
               .duration(200)
               .attr('fill', d3.color(colorScale(playerData.player)).brighter(0.5));
+            
+            // Add tooltip
+            const tooltip = svg.append('g')
+              .attr('class', 'tooltip')
+              .style('pointer-events', 'none');
+            
+            tooltip.append('rect')
+              .attr('x', xScale(attributeData.attribute) + xSubgroup(playerData.player) - 30)
+              .attr('y', yScale(playerData.value) - 30)
+              .attr('width', 60)
+              .attr('height', 20)
+              .attr('fill', '#1F2937')
+              .attr('rx', 3);
+            
+            tooltip.append('text')
+              .attr('x', xScale(attributeData.attribute) + xSubgroup(playerData.player))
+              .attr('y', yScale(playerData.value) - 15)
+              .attr('text-anchor', 'middle')
+              .attr('fill', '#E5E7EB')
+              .style('font-size', '12px')
+              .text(playerData.value);
           })
           .on('mouseout', function() {
             d3.select(this)
               .transition()
               .duration(200)
               .attr('fill', colorScale(playerData.player));
+            
+            svg.selectAll('.tooltip').remove();
           });
       });
     });

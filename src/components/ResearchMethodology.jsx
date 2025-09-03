@@ -1,4 +1,3 @@
-// src/components/ResearchMethodology.jsx
 const ResearchMethodology = () => {
   return (
     <div className="p-6 bg-gray-800/50 rounded-xl border border-gray-700">

@@ -1,4 +1,3 @@
-// src/components/sections/PlayerPerformance.jsx
 import React, { useState, useEffect } from 'react';
 import { useTeamPlayers } from '../../hooks/useTeamPlayers';
 import { getClubById } from '../../config/premierLeagueClubs';
@@ -14,7 +13,7 @@ const PlayerPerformance = ({ selectedSeason, selectedTeam }) => {
   const [selectedPlayers, setSelectedPlayers] = useState([]);
   const club = getClubById(selectedTeam);
 
-  // Reset states when team or season changes
+  // we will reset states when team or season changes
   useEffect(() => {
     setCurrentPage(1);
     setSelectedPlayer(null);
@@ -22,19 +21,19 @@ const PlayerPerformance = ({ selectedSeason, selectedTeam }) => {
     setSelectedPlayers([]);
   }, [selectedTeam, selectedSeason]);
 
-  // Function to handle player selection for profile view
+  // let's create a function to handle player selection for profile view
   const handlePlayerSelect = (playerData) => {
     setSelectedPlayer(playerData);
     setViewMode('profile');
   };
 
-  // Function to handle closing the profile
+  // let's also create a function to handle closing the profile
   const handleCloseProfile = () => {
     setSelectedPlayer(null);
     setViewMode('list');
   };
 
-  // Function to handle player selection for comparison
+  // let's create a function to handle player selection for comparison
   const handlePlayerCompareSelect = (playerData) => {
     if (selectedPlayers.some(p => p.player.id === playerData.player.id)) {
       setSelectedPlayers(selectedPlayers.filter(p => p.player.id !== playerData.player.id));
@@ -43,7 +42,7 @@ const PlayerPerformance = ({ selectedSeason, selectedTeam }) => {
     }
   };
 
-  // Function to toggle comparison view
+  // let's create a function to toggle comparison view
   const toggleComparisonView = () => {
     if (viewMode === 'comparison') {
       setViewMode('list');
@@ -53,7 +52,7 @@ const PlayerPerformance = ({ selectedSeason, selectedTeam }) => {
     }
   };
 
-  // If in profile view, show player profile
+  // if we are in the profile view or section we will show player profile
   if (viewMode === 'profile' && selectedPlayer) {
     return (
       <PlayerProfile
@@ -65,13 +64,13 @@ const PlayerPerformance = ({ selectedSeason, selectedTeam }) => {
     );
   }
 
-  // In the comparison view section of PlayerPerformance.jsx:
+  // if we are in the comparison view or section we will show the comparison of players 
   if (viewMode === 'comparison') {
     return (
       <PlayerComparison
         playersData={data?.response || []}
-        selectedPlayers={selectedPlayers} // Pass the selected players
-        setSelectedPlayers={setSelectedPlayers} // Pass the setter function
+        selectedPlayers={selectedPlayers}
+        setSelectedPlayers={setSelectedPlayers}
         onBack={() => setViewMode('list')}
         selectedSeason={selectedSeason}
         selectedTeam={selectedTeam}
@@ -80,7 +79,7 @@ const PlayerPerformance = ({ selectedSeason, selectedTeam }) => {
     );
   }
 
-  // Loading, error, and empty states
+  //  we will show some errors / states such as loading, error, and empty states
   if (!selectedTeam) {
     return (
       <div className="p-6 bg-gray-800/50 rounded-xl border border-gray-700">
@@ -116,10 +115,11 @@ const PlayerPerformance = ({ selectedSeason, selectedTeam }) => {
     );
   }
 
-  // Get players from API response
+  // let's get players from API response
   const players = data?.response || [];
 
-  // FIXED: Calculate total pages based on currently loaded players, not API paging
+  console.log({ players, length: players?.length });
+  
   const totalPlayerPages = Math.ceil(players.length / playersPerPage);
 
   // Calculate pagination for currently loaded players
@@ -127,17 +127,16 @@ const PlayerPerformance = ({ selectedSeason, selectedTeam }) => {
   const indexOfFirstPlayer = indexOfLastPlayer - playersPerPage;
   const currentPlayers = players.slice(indexOfFirstPlayer, indexOfLastPlayer);
 
-  // Change page
+  // here we will handle the changing of pages
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-  // Calculate page numbers to show - use totalPlayerPages instead of totalPages
+  // we will calculate the page numbers to show
   const pageNumbers = [];
   for (let i = 1; i <= totalPlayerPages; i++) {
     pageNumbers.push(i);
   }
 
-  // Only show a subset of page numbers for better UI
-  const maxPageNumbersToShow = 5;
+  const maxPageNumbersToShow = 10; // max page number to show is 10 
   let startPage = Math.max(1, currentPage - Math.floor(maxPageNumbersToShow / 2));
   let endPage = Math.min(totalPlayerPages, startPage + maxPageNumbersToShow - 1);
 
@@ -152,7 +151,6 @@ const PlayerPerformance = ({ selectedSeason, selectedTeam }) => {
 
   return (
     <div className="p-6 bg-gray-800/50 rounded-xl border border-gray-700">
-      {/* Header with Comparison Controls */}
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center space-x-4">
           <img
@@ -166,7 +164,6 @@ const PlayerPerformance = ({ selectedSeason, selectedTeam }) => {
           </div>
         </div>
 
-        {/* Comparison Controls */}
         <div className="flex items-center space-x-3">
           {selectedPlayers.length > 0 && (
             <div className="text-sm text-cyan-300 bg-cyan-900/30 px-3 py-1 rounded-full">
@@ -177,8 +174,8 @@ const PlayerPerformance = ({ selectedSeason, selectedTeam }) => {
             onClick={toggleComparisonView}
             disabled={selectedPlayers.length === 0}
             className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${selectedPlayers.length > 0
-                ? 'bg-cyan-600 text-white hover:bg-cyan-500 shadow-lg shadow-cyan-500/20'
-                : 'bg-gray-700 text-gray-500 cursor-not-allowed'
+              ? 'bg-cyan-600 text-white hover:bg-cyan-500 shadow-lg shadow-cyan-500/20'
+              : 'bg-gray-700 text-gray-500 cursor-not-allowed'
               }`}
           >
             {viewMode === 'comparison' ? 'Back to List' : 'Compare Players'}
@@ -186,7 +183,6 @@ const PlayerPerformance = ({ selectedSeason, selectedTeam }) => {
         </div>
       </div>
 
-      {/* Selection Info */}
       {selectedPlayers.length > 0 && (
         <div className="bg-cyan-900/20 border border-cyan-700/50 rounded-lg p-3 mb-4">
           <p className="text-cyan-300 text-sm text-center">
@@ -200,7 +196,7 @@ const PlayerPerformance = ({ selectedSeason, selectedTeam }) => {
           Showing {indexOfFirstPlayer + 1}-{Math.min(indexOfLastPlayer, players.length)} of {players.length} players
         </div>
         <div className="text-sm text-gray-400">
-          Page {currentPage} of {totalPlayerPages} {/* FIXED: Use totalPlayerPages */}
+          Page {currentPage} of {totalPlayerPages}
         </div>
       </div>
 
@@ -230,7 +226,6 @@ const PlayerPerformance = ({ selectedSeason, selectedTeam }) => {
                   className={`border-b border-gray-700/50 hover:bg-gray-700/30 transition-colors ${isSelected ? 'bg-cyan-900/20' : ''
                     }`}
                 >
-                  {/* Selection checkbox */}
                   <td className="py-3 px-2">
                     <input
                       type="checkbox"
@@ -267,8 +262,8 @@ const PlayerPerformance = ({ selectedSeason, selectedTeam }) => {
                   <td className="py-3 text-sm text-gray-400">
                     {stats.games?.rating ? (
                       <span className={`font-medium ${parseFloat(stats.games.rating) >= 7.5 ? 'text-green-400' :
-                          parseFloat(stats.games.rating) >= 6.5 ? 'text-yellow-400' :
-                            'text-red-400'
+                        parseFloat(stats.games.rating) >= 6.5 ? 'text-yellow-400' :
+                          'text-red-400'
                         }`}>
                         {parseFloat(stats.games.rating).toFixed(2)}
                       </span>
@@ -294,8 +289,8 @@ const PlayerPerformance = ({ selectedSeason, selectedTeam }) => {
               onClick={() => paginate(currentPage - 1)}
               disabled={currentPage === 1}
               className={`px-4 py-2 rounded-md mr-2 text-sm font-medium ${currentPage === 1
-                  ? 'bg-gray-700 text-gray-500 cursor-not-allowed'
-                  : 'bg-cyan-600 text-white hover:bg-cyan-500'
+                ? 'bg-gray-700 text-gray-500 cursor-not-allowed'
+                : 'bg-cyan-600 text-white hover:bg-cyan-500'
                 }`}
             >
               Previous
@@ -304,8 +299,8 @@ const PlayerPerformance = ({ selectedSeason, selectedTeam }) => {
               onClick={() => paginate(currentPage + 1)}
               disabled={currentPage === totalPlayerPages}
               className={`px-4 py-2 rounded-md text-sm font-medium ${currentPage === totalPlayerPages // FIXED: Use totalPlayerPages
-                  ? 'bg-gray-700 text-gray-500 cursor-not-allowed'
-                  : 'bg-cyan-600 text-white hover:bg-cyan-500'
+                ? 'bg-gray-700 text-gray-500 cursor-not-allowed'
+                : 'bg-cyan-600 text-white hover:bg-cyan-500'
                 }`}
             >
               Next
@@ -318,18 +313,18 @@ const PlayerPerformance = ({ selectedSeason, selectedTeam }) => {
                 key={number}
                 onClick={() => paginate(number)}
                 className={`w-10 h-10 rounded-md text-sm font-medium ${currentPage === number
-                    ? 'bg-cyan-600 text-white shadow-lg shadow-cyan-500/20'
-                    : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+                  ? 'bg-cyan-600 text-white shadow-lg shadow-cyan-500/20'
+                  : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
                   }`}
               >
                 {number}
               </button>
             ))}
-            {endPage < totalPlayerPages && ( // FIXED: Use totalPlayerPages
+            {endPage < totalPlayerPages && (
               <>
                 <span className="px-2 py-2 text-gray-400">...</span>
                 <button
-                  onClick={() => paginate(totalPlayerPages)} // FIXED: Use totalPlayerPages
+                  onClick={() => paginate(totalPlayerPages)}
                   className="w-10 h-10 rounded-md bg-gray-700 text-gray-300 hover:bg-gray-600 text-sm font-medium"
                 >
                   {totalPlayerPages}

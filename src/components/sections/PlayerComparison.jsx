@@ -1,4 +1,3 @@
-// src/components/sections/PlayerComparison.jsx
 import React, { useState } from 'react';
 import { useTeamPlayers } from '../../hooks/useTeamPlayers';
 import { getClubById } from '../../config/premierLeagueClubs';
@@ -7,8 +6,8 @@ import BarChartComparison from '../charts/d3/BarChartComparison';
 
 const PlayerComparison = ({
     playersData = [],
-    selectedPlayers = [],
-    setSelectedPlayers,
+    selectedPlayers: externalSelectedPlayers = [],
+    setSelectedPlayers: externalSetSelectedPlayers,
     onBack,
     selectedSeason,
     selectedTeam,
@@ -16,6 +15,14 @@ const PlayerComparison = ({
 }) => {
     const { data, loading, error } = useTeamPlayers(selectedTeam, selectedSeason);
     const [comparisonType, setComparisonType] = useState('radar');
+    
+    // we use local state if setSelectedPlayers is not provided
+    const [internalSelectedPlayers, setInternalSelectedPlayers] = useState([]);
+    
+    // we will determine which state to use
+    const usingExternalState = typeof externalSetSelectedPlayers === 'function';
+    const selectedPlayers = usingExternalState ? externalSelectedPlayers : internalSelectedPlayers;
+    const setSelectedPlayers = usingExternalState ? externalSetSelectedPlayers : setInternalSelectedPlayers;
 
     const displayClub = club || getClubById(selectedTeam);
 
@@ -36,10 +43,18 @@ const PlayerComparison = ({
     ];
 
     const handlePlayerSelect = (player) => {
-        if (selectedPlayers.some(p => p.player.id === player.player.id)) {
-            setSelectedPlayers(selectedPlayers.filter(p => p.player.id !== player.player.id));
+        // we will check if player is already selected
+        const isAlreadySelected = selectedPlayers.some(p => p.player.id === player.player.id);
+        
+        if (isAlreadySelected) {
+            // let's remove player from selection
+            setSelectedPlayers(prev => prev.filter(p => p.player.id !== player.player.id));
         } else if (selectedPlayers.length < 4) {
-            setSelectedPlayers([...selectedPlayers, player]);
+            // we will add player to selection (max of 4 players)
+            setSelectedPlayers(prev => [...prev, player]);
+        } else {
+            // we will show a message if user is trying to select more than 4 players
+            alert("You can only select up to 4 players for comparison");
         }
     };
 
@@ -47,7 +62,7 @@ const PlayerComparison = ({
 
     return (
         <div style={{ padding: '1.5rem', backgroundColor: 'rgba(31, 41, 55, 0.5)', borderRadius: '0.75rem', border: '1px solid rgba(55, 65, 81, 1)' }}>
-            {/* Header with Back Button */}
+          
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.5rem' }}>
                 <button
                     onClick={onBack}
@@ -74,7 +89,6 @@ const PlayerComparison = ({
                 </div>
             </div>
 
-            {/* Comparison Controls */}
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.5rem' }}>
                 <div style={{ display: 'flex', gap: '0.5rem' }}>
                     <button
@@ -164,7 +178,7 @@ const PlayerComparison = ({
                 )}
             </div>
 
-            {/* Visualization Area */}
+            {/* here ww will show all the visualization items i.e charts, table and radar */}
             {selectedPlayers.length > 0 ? (
                 <div style={{ marginBottom: '1.5rem', display: 'flex', justifyContent: 'center' }}>
                     {comparisonType === 'radar' ? (
@@ -247,7 +261,7 @@ const PlayerComparison = ({
                 </div>
             )}
 
-            {/* Player Selection */}
+            {/* we will add player selection feature here */}
             <div>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem' }}>
                     <h3 style={{ fontSize: '1.125rem', fontWeight: '600', color: 'rgba(209, 213, 219, 1)' }}>

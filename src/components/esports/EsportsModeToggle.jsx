@@ -1,10 +1,10 @@
-// src/components/esports/EsportsModeToggle.jsx
 import { useProject } from '../ProjectContext';
 
 const EsportsModeToggle = () => {
   const { researchMode, setResearchMode } = useProject();
 
   return (
+    // this place we will add the bottom right project details 
     <div className="flex items-center space-x-2 mb-4 p-3 bg-gray-800/50 rounded-lg">
       <span className="text-sm text-gray-400">Research Mode:</span>
       <button

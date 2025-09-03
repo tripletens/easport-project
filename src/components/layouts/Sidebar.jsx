@@ -1,4 +1,3 @@
-// src/components/layouts/Sidebar.jsx
 export default function Sidebar({ 
   user, 
   onLogout, 
@@ -17,7 +16,7 @@ export default function Sidebar({
 
   return (
     <aside className="w-72 bg-gray-900/95 border-r border-gray-800 flex flex-col">
-      {/* Header */}
+      {/* our header goes here */}
       <div className="px-6 py-6 border-b border-gray-700">
         <h1 className="text-2xl font-extrabold text-cyan-400 tracking-wide mb-2">
           Premier League Analytics
@@ -25,11 +24,11 @@ export default function Sidebar({
         <p className="text-sm text-gray-400">Coach's Intelligence Platform</p>
       </div>
 
-      {/* Global Filters */}
+      {/* i need global filters here */}
       <div className="p-4 border-b border-gray-700 space-y-3">
         <h3 className="text-sm font-semibold text-cyan-300 uppercase tracking-wider">Data Context</h3>
         
-        {/* Season Filter */}
+        {/* we filter by seasons */}
         <div>
           <label className="block text-xs font-medium text-gray-400 mb-1">Season</label>
           <select
@@ -45,7 +44,7 @@ export default function Sidebar({
           </select>
         </div>
 
-        {/* Team Filter - Only Premier League clubs */}
+        {/* we have our team filter - Only Premier League clubs */}
         <div>
           <label className="block text-xs font-medium text-gray-400 mb-1">Team</label>
           <select
@@ -63,7 +62,7 @@ export default function Sidebar({
         </div>
       </div>
 
-      {/* Navigation */}
+      {/* we will have the navigation items */}
       <nav className="flex-1 px-3 py-4 space-y-1">
         {navItems.map((item) => (
           <button
@@ -84,7 +83,7 @@ export default function Sidebar({
         ))}
       </nav>
 
-      {/* User & Logout */}
+      {/* we have the user details & logout button */}
       <div className="p-4 border-t border-gray-700">
         <div className="flex items-center gap-3 mb-4">
           <div className="w-8 h-8 bg-cyan-600 rounded-full flex items-center justify-center">

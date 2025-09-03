@@ -1,9 +1,8 @@
-// src/config/premierLeagueClubs.js
 export const PREMIER_LEAGUE_CLUBS = {
-  // Premier League ID
+  // this is premier league ID
   LEAGUE_ID: 39,
   
-  // Selected clubs with their API IDs
+  // okay, we will add the selected clubs with their API IDs
   CLUBS: [
     {
       id: 42,
@@ -38,7 +37,7 @@ export const PREMIER_LEAGUE_CLUBS = {
   ]
 };
 
-// Helper function to get club by ID
+// we will have to get club by ID here 
 export const getClubById = (id) => {
   if (!id) return null;
   return PREMIER_LEAGUE_CLUBS.CLUBS.find(club => club.id === parseInt(id));

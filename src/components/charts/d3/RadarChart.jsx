@@ -1,4 +1,3 @@
-// src/components/charts/d3/RadarChart.jsx
 import React, { useMemo, useRef, useEffect } from 'react';
 import * as d3 from 'd3';
 
@@ -13,11 +12,10 @@ const RadarChart = ({ players, attributes, width = 500, height = 400, className 
       return {
         name: player.player.name,
         values: attributes.map(attr => {
-          // Handle nested keys like 'goals.total'
           const value = attr.key.split('.').reduce((obj, key) => obj?.[key], stats) || 0;
           return {
             axis: attr.label,
-            value: Math.min(value, attr.max || 100), // Cap at max value
+            value: Math.min(value, attr.max || 100),
             max: attr.max || 100
           };
         })
@@ -29,7 +27,7 @@ const RadarChart = ({ players, attributes, width = 500, height = 400, className 
     if (!processedData || processedData.length === 0) return;
 
     const svg = d3.select(svgRef.current);
-    svg.selectAll("*").remove(); // Clear previous chart
+    svg.selectAll("*").remove(); // we will clear previous chart
 
     const margin = { top: 50, right: 50, bottom: 50, left: 50 };
     const innerWidth = width - margin.left - margin.right;
@@ -83,7 +81,7 @@ const RadarChart = ({ players, attributes, width = 500, height = 400, className 
       .domain(processedData.map(d => d.name))
       .range(['#06B6D4', '#10B981', '#F59E0B', '#EF4444', '#8B5CF6']);
 
-    // Draw each player's radar
+    // we will draw each player's radar
     processedData.forEach(player => {
       const lineGenerator = d3.lineRadial()
         .curve(d3.curveLinearClosed)
@@ -99,7 +97,7 @@ const RadarChart = ({ players, attributes, width = 500, height = 400, className 
         .attr('stroke-width', 2)
         .attr('stroke-opacity', 0.8);
 
-      // Add data points
+      // let's add data points
       player.values.forEach((d, i) => {
         const angle = angleSlice * i - Math.PI / 2;
         const x = rScale(d.value) * Math.cos(angle);
@@ -115,7 +113,6 @@ const RadarChart = ({ players, attributes, width = 500, height = 400, className 
       });
     });
 
-    // LEGEND - MOVED TO TOP LEFT CORNER
     const legend = svg.append('g')
       .attr('transform', `translate(${margin.left - 40}, ${margin.top - 40})`);
 

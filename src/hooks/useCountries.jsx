@@ -1,4 +1,3 @@
-// src/services/hooks/useCountries.js
 import { useState, useEffect } from 'react';
 import { footballAPI } from '../api/footballApi';
 
@@ -7,6 +6,7 @@ export const useCountries = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // we will fetch the countries here 
   useEffect(() => {
     const fetchCountries = async () => {
       setLoading(true);

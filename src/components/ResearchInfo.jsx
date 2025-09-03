@@ -1,4 +1,3 @@
-// src/components/ResearchInfo.jsx
 import { useProject } from './ProjectContext';
 
 const ResearchInfo = () => {

@@ -1,4 +1,3 @@
-// src/services/api/index.jsx
 const API_CONFIG = {
   RAPID_API: {
     baseURL: import.meta.env.VITE_RAPID_API_BASE_URL || 'https://api-football-v1.p.rapidapi.com/v3',

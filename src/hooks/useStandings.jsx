@@ -1,4 +1,3 @@
-// src/hooks/useStandings.jsx
 import { useState, useEffect } from 'react';
 import { footballAPI } from '../services/api/footballApi';
 
@@ -7,6 +6,7 @@ export const useStandings = (season = '2023') => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // here we will fetch the league standing
   useEffect(() => {
     const fetchStandings = async () => {
       setLoading(true);

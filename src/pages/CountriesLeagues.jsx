@@ -1,4 +1,3 @@
-// src/pages/CountriesLeagues.jsx
 import { useState, useEffect } from 'react';
 import { useLeagues } from '../hooks/useLeagues';
 
@@ -33,7 +32,6 @@ const CountriesLeagues = ({ onSelectLeague }) => {
     <div className="p-6 bg-gray-800/50 rounded-xl border border-gray-700">
       <h3 className="text-lg font-semibold text-cyan-300 mb-4">Leagues & Countries</h3>
       
-      {/* Country filter */}
       <div className="mb-6">
         <label className="block text-sm font-medium text-gray-400 mb-2">Filter by Country</label>
         <select
@@ -50,7 +48,6 @@ const CountriesLeagues = ({ onSelectLeague }) => {
         </select>
       </div>
       
-      {/* Leagues grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {data?.response?.map((leagueData) => (
           <div 

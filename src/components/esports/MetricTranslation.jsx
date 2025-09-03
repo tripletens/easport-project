@@ -1,5 +1,3 @@
-
-// src/components/esports/MetricTranslation.jsx
 import { useProject } from '../ProjectContext';
 
 const MetricTranslation = () => {

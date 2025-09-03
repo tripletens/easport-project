@@ -1,4 +1,3 @@
-// src/components/sections/PremierLeagueStandings.jsx
 import { useStandings } from '../../hooks/useStandings';
 import { PREMIER_LEAGUE_CLUBS } from '../../config/premierLeagueClubs';
 
@@ -29,7 +28,7 @@ const PremierLeagueStandings = ({ season }) => {
     );
   }
 
-  // Extract the standings data from the API response
+  // we will extract the standings data from the API response
   const leagueStandings = data?.response?.[0]?.league?.standings?.[0] || [];
 
   return (

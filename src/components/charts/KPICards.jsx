@@ -1,9 +1,8 @@
-// src/components/charts/KPICards.jsx
 const KPICards = ({ data, team, season }) => {
-  // Extract data from API response
+  // we will extract data from API response
   const stats = data?.response;
   
-  // Calculate values or use defaults
+  // we will calculate values or use defaults
   const goalsScored = stats?.goals?.for?.total?.total || 0;
   const goalsConceded = stats?.goals?.against?.total?.total || 0;
   const wins = stats?.fixtures?.wins?.total || 0;

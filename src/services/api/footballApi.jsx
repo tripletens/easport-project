@@ -1,10 +1,9 @@
-// src/services/api/footballApi.jsx
 import { apiRequest, ENDPOINTS } from './index';
 import { mockData } from './mockData';
 import { PREMIER_LEAGUE_CLUBS } from '../../config/premierLeagueClubs';
 
 export const footballAPI = {
-  // Get team statistics with the exact API structure
+  // let's get team statistics with the exact API structure
   getTeamStatistics: async (teamId, leagueId, season = '2023') => {
     const params = { 
       team: teamId, 
@@ -16,13 +15,12 @@ export const footballAPI = {
     
     if (error) {
       console.warn('Using mock team statistics due to error:', error);
-      // Return mock data that matches the API structure
+      // we will return mock data that matches the API structure
       return mockData.teamStatistics;
     }
     return data;
   },
   
-  // Keep other methods the same
   getPremierLeagueStandings: async (season = '2023') => {
     const params = { league: PREMIER_LEAGUE_CLUBS.LEAGUE_ID, season };
     const { data, error } = await apiRequest(ENDPOINTS.STANDINGS, params);

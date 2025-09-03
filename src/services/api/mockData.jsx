@@ -1,6 +1,6 @@
-// src/services/api/mockData.jsx
 import { PREMIER_LEAGUE_CLUBS } from '../../config/premierLeagueClubs';
 
+// here is a sample api data response for mock data purposes
 export const mockData = {
   teamStatistics: {
     get: "teams/statistics",
@@ -127,7 +127,6 @@ export const mockData = {
     }
   },
   
-  // Keep other mock data the same but ensure structure matches API
   standings: {
     get: "standings",
     parameters: {
@@ -278,7 +277,6 @@ export const mockData = {
           }
         ]
       }
-      // Add more players as needed
     ]
   }
 };

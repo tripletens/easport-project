@@ -29,7 +29,6 @@ export default function Login({ onLogin }) {
       <div className="w-full h-full flex items-center justify-center bg-white/90 backdrop-blur-md p-8">
         <div className="w-full max-w-lg">
           
-          {/* Title */}
           <h2 className="text-4xl font-extrabold text-gray-800 text-center mb-4">
             🎮 Welcome Back
           </h2>
@@ -37,7 +36,6 @@ export default function Login({ onLogin }) {
             Login to access your eSports dashboard
           </p>
 
-          {/* Form */}
           <form onSubmit={handleLogin} className="space-y-6">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -73,20 +71,11 @@ export default function Login({ onLogin }) {
             </button>
           </form>
 
-          {/* Error */}
           {error && (
             <p className="text-red-500 mt-4 text-center text-sm font-medium">
               {error}
             </p>
           )}
-
-          {/* Extra Links */}
-          <p className="text-gray-700 text-sm mt-6 text-center">
-            Don’t have an account?{" "}
-            <span className="text-indigo-600 cursor-pointer hover:underline font-medium">
-              Sign up
-            </span>
-          </p>
         </div>
       </div>
     </div>

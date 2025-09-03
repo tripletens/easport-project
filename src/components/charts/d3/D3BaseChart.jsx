@@ -1,4 +1,3 @@
-// src/components/charts/d3/D3BaseChart.jsx
 import React, { useRef, useEffect, useCallback } from 'react';
 import * as d3 from 'd3';
 
@@ -15,25 +14,24 @@ const D3BaseChart = ({
   const drawChart = useCallback(() => {
     if (!data || !svgRef.current) return;
 
-    // Clear previous content
+    // let's clear previous content
     d3.select(svgRef.current).selectAll('*').remove();
 
     const svg = d3.select(svgRef.current);
     const innerWidth = width - margin.left - margin.right;
     const innerHeight = height - margin.top - margin.bottom;
 
-    // Create main group with margins
     const g = svg.append('g')
       .attr('transform', `translate(${margin.left},${margin.top})`);
 
-    // Call the render function with D3 context and pass margin
+    // lets call the render chat
     renderChart(svg, g, {
       width,
       height,
       innerWidth,
       innerHeight,
       data,
-      margin // Pass margin to the render function
+      margin 
     });
   }, [data, width, height, margin, renderChart]);
 

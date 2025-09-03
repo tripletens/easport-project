@@ -1,5 +1,4 @@
-// src/components/sections/TeamPerformance.jsx
-import { useState, useEffect } from 'react';
+
 import { useTeamStats } from '../../hooks/useTeamStats';
 import { useStandings } from '../../hooks/useStandings';
 import { getClubById } from '../../config/premierLeagueClubs';
@@ -15,7 +14,7 @@ const TeamPerformance = ({ selectedSeason, selectedTeam }) => {
 
   const club = getClubById(selectedTeam);
 
-  // Extract the actual response data from the API structure
+  // we will extract the actual response data from the API structure
   const stats = teamData?.response;
   const standings = standingsData?.response?.[0]?.league?.standings?.[0];
 
@@ -54,14 +53,13 @@ const TeamPerformance = ({ selectedSeason, selectedTeam }) => {
     );
   }
 
-  // Extract team position from standings
+  // we will also extract team position from standings
   const teamPosition = standings?.find(
     t => t.team.id === parseInt(selectedTeam)
   )?.rank;
 
   return (
     <div className="space-y-6">
-      {/* Team Header */}
       <div className="flex items-center space-x-4 p-4 bg-gray-800/50 rounded-xl border border-gray-700">
         <img 
           src={club.logo} 
@@ -77,16 +75,15 @@ const TeamPerformance = ({ selectedSeason, selectedTeam }) => {
         </div>
       </div>
       
-      {/* KPI Cards */}
       <KPICards 
         data={teamData} 
         team={selectedTeam} 
         season={selectedSeason} 
       />
       
-      {/* Performance Charts */}
+      {/* we will add the performance charts here */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Team Stats */}
+        {/*  we will also add the team stats */}
         <div className="bg-gray-800/50 rounded-xl p-6 border border-gray-700">
           <h3 className="text-lg font-semibold text-cyan-300 mb-4">Team Statistics</h3>
           {stats ? (
@@ -133,7 +130,7 @@ const TeamPerformance = ({ selectedSeason, selectedTeam }) => {
           )}
         </div>
         
-        {/* League Position & Form */}
+        {/* we will add the team's league position & form */}
         <div className="bg-gray-800/50 rounded-xl p-6 border border-gray-700">
           <h3 className="text-lg font-semibold text-cyan-300 mb-4">League Position & Form</h3>
           {teamPosition ? (
@@ -145,7 +142,7 @@ const TeamPerformance = ({ selectedSeason, selectedTeam }) => {
             <div className="text-center mb-6 text-gray-400">Position data not available</div>
           )}
           
-          {/* Recent Form */}
+          {/* here is the club's recent form */}
           {stats?.form && (
             <div className="mt-4">
               <h4 className="text-md font-medium text-gray-300 mb-2">Recent Form</h4>
@@ -169,9 +166,9 @@ const TeamPerformance = ({ selectedSeason, selectedTeam }) => {
         </div>
       </div>
       
-      {/* Additional Stats */}
+      {/* we will add additional stats */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Home vs Away Performance */}
+        {/* okay we will have the home vs away performance here */}
         <div className="bg-gray-800/50 rounded-xl p-6 border border-gray-700">
           <h3 className="text-lg font-semibold text-cyan-300 mb-4">Home vs Away Performance</h3>
           {stats && (
@@ -198,7 +195,7 @@ const TeamPerformance = ({ selectedSeason, selectedTeam }) => {
           )}
         </div>
         
-        {/* Biggest Results */}
+        {/* okay let's add some unique data about the biggest results from the api response */}
         <div className="bg-gray-800/50 rounded-xl p-6 border border-gray-700">
           <h3 className="text-lg font-semibold text-cyan-300 mb-4">Biggest Results</h3>
           {stats && (
@@ -224,7 +221,7 @@ const TeamPerformance = ({ selectedSeason, selectedTeam }) => {
         </div>
       </div>
       
-      {/* Performance Trend Chart */}
+      {/* we will add the performance trend chart */}
       <PerformanceTrendChart 
         data={teamData} 
         team={selectedTeam} 

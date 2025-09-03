@@ -1,7 +1,8 @@
-// src/components/test/ApiTest.jsx
 import { useEffect, useState } from 'react';
 import { footballAPI } from '../../services/api/footballApi';
 
+
+// everything here is for the api test 
 const ApiTest = () => {
   const [standings, setStandings] = useState(null);
   const [loading, setLoading] = useState(true);
