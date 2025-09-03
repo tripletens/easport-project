@@ -1,3 +1,5 @@
+import ResearchInfo from "../ResearchInfo";
+
 export default function Sidebar({ 
   user, 
   onLogout, 
@@ -102,6 +104,7 @@ export default function Sidebar({
           <span>Sign Out</span>
         </button>
       </div>
+      <ResearchInfo />
     </aside>
   );
 }

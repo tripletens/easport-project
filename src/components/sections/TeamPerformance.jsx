@@ -222,11 +222,11 @@ const TeamPerformance = ({ selectedSeason, selectedTeam }) => {
       </div>
       
       {/* we will add the performance trend chart */}
-      <PerformanceTrendChart 
+      {/* <PerformanceTrendChart 
         data={teamData} 
         team={selectedTeam} 
         season={selectedSeason} 
-      />
+      /> */}
     </div>
   );
 };

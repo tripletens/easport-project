@@ -14,7 +14,7 @@ function AppContent() {
 
   return (
     <div className="h-screen w-screen">
-      <ResearchInfo />
+      {/* <ResearchInfo /> */}
       {loggedInUser ? (
         <Dashboard 
           user={loggedInUser} 
